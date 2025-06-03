@@ -58,7 +58,8 @@ if (isset($_GET['venue']) && isset($_SESSION['venue']) && $_SESSION['venue'] !==
             color: #00ff88;
             text-shadow: 0 0 10px #00ff88;
             animation: pulse 2s infinite;
-            margin-top: 0;
+            margin-top: 40px;
+            margin-bottom: 20px;
         }
         .qr-code {
             display: block;
@@ -137,11 +138,17 @@ if (isset($_GET['venue']) && isset($_SESSION['venue']) && $_SESSION['venue'] !==
             right: 10px;
             background: #ff4444;
             color: #fff;
-            padding: 8px 12px;
+            padding: 6px 10px;
             border-radius: 50%;
-            font-size: 14px;
+            font-size: 12px;
             cursor: pointer;
             transition: transform 0.3s;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10;
         }
         .exit-button:hover {
             transform: scale(1.1);
@@ -179,15 +186,15 @@ if (isset($_GET['venue']) && isset($_SESSION['venue']) && $_SESSION['venue'] !==
                 echo "<button type='submit'>Join Chat</button>";
                 echo "</form>";
             } else {
-                echo "<h1>Welcome to Fun Chat!</h1>";
-                echo "<p>Scan the QR code to join the chat room!</p>";
-                echo "<img src='https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://52.34.246.115/ssmchat/index.php?venue=room1' class='qr-code' alt='Room 1 QR'>";
+                echo "<h1>Welcome to Kelly's Pub!</h1>";
+                echo "<p>Scan the QR code to joing a vanashing chat session</p>";
+                echo "<img src='https://api.qrserver.com/v1/create-qr-code/?size=600x600&data=http://52.34.246.115/ssmchat/index.php?venue=room1' class='qr-code' alt='Room 1 QR'>";
             }
         } else {
-            echo "<h1>Chat Room: " . htmlspecialchars($_SESSION['venue']) . "</h1>";
             echo "<form method='POST' action='exit.php'>";
-            echo "<button type='submit' class='exit-button'>Exit</button>";
+            echo "<button type='submit' class='exit-button'>X</button>";
             echo "</form>";
+            echo "<h1>Chat Room: " . htmlspecialchars($_SESSION['venue']) . "</h1>";
             echo "<div id='chatBox'></div>";
             echo "<form id='messageForm'>";
             echo "<input type='text' id='message' placeholder='Type a message' required>";
