@@ -33,10 +33,10 @@ $venue = isset($_GET['venue']) ? htmlspecialchars($_GET['venue']) : 'Kellys';
         .header {
             text-align: center;
             color: #00c4b4;
-            text-shadow: 0 0 15px #00c4b4;
-            font-size: 5rem;
+            text-shadow: 0 0 5px #00c4b4, 0 0 10px #00c4b4;
+            font-size: 3.5rem;
             font-weight: 800;
-            margin: 20px 0;
+            margin: 10px 0;
             padding: 0 20px;
             animation: glow 2s ease-in-out infinite alternate;
         }
@@ -44,21 +44,20 @@ $venue = isset($_GET['venue']) ? htmlspecialchars($_GET['venue']) : 'Kellys';
             display: grid;
             grid-template-columns: 1fr 1fr;
             width: 100%;
-            height: calc(100vh - 120px);
-            gap: 30px;
-            padding: 30px;
+            height: calc(100vh - 100px);
+            gap: 40px;
+            padding: 20px;
         }
         .messages {
             background: #2a2a2a;
             border-radius: 15px;
-            padding: 25px;
+            padding: 20px;
             overflow-y: auto;
             display: flex;
             flex-direction: column;
             gap: 15px;
             box-shadow: 0 0 20px rgba(0, 196, 180, 0.3);
-            max-height: 100%;
-            margin-bottom: 20px;
+            max-height: 80vh;
         }
         .message {
             max-width: 80%;
@@ -85,22 +84,23 @@ $venue = isset($_GET['venue']) ? htmlspecialchars($_GET['venue']) : 'Kellys';
             align-items: center;
             background: #2a2a2a;
             border-radius: 15px;
-            padding: 25px;
+            padding: 20px;
             box-shadow: 0 0 20px rgba(0, 196, 180, 0.3);
-            margin-bottom: 20px;
+            max-height: 80vh;
         }
         .qr-code {
             border: 15px solid #00c4b4;
             border-radius: 20px;
-            width: 600px;
-            height: 600px;
+            width: 500px;
+            height: 500px;
             animation: pulseQR 2s ease-in-out infinite;
+            margin-bottom: 10px;
         }
         .qr-text {
             font-size: 2rem;
             font-weight: 600;
             color: #e0e0e0;
-            margin: 20px 0;
+            margin: 10px 0;
             text-shadow: 0 0 5px #00c4b4;
         }
 
@@ -109,8 +109,8 @@ $venue = isset($_GET['venue']) ? htmlspecialchars($_GET['venue']) : 'Kellys';
             to { opacity: 1; transform: translateY(0); }
         }
         @keyframes glow {
-            from { text-shadow: 0 0 10px #00c4b4, 0 0 20px #00c4b4; }
-            to { text-shadow: 0 0 20px #00c4b4, 0 0 30px #00c4b4; }
+            from { text-shadow: 0 0 5px #00c4b4, 0 0 10px #00c4b4; }
+            to { text-shadow: 0 0 10px #00c4b4, 0 0 15px #00c4b4; }
         }
         @keyframes pulseQR {
             0% { box-shadow: 0 0 10px #00c4b4; }
@@ -122,30 +122,30 @@ $venue = isset($_GET['venue']) ? htmlspecialchars($_GET['venue']) : 'Kellys';
             .content {
                 grid-template-columns: 1fr;
                 grid-template-rows: auto auto;
-                padding: 20px;
+                padding: 15px;
                 gap: 20px;
             }
             .qr-code {
-                width: 400px;
-                height: 400px;
+                width: 350px;
+                height: 350px;
             }
             .header {
-                font-size: 3rem;
+                font-size: 2.5rem;
             }
             .qr-text {
                 font-size: 1.5rem;
             }
             .messages, .qr-container {
-                margin-bottom: 10px;
+                max-height: 45vh;
             }
         }
         @media (min-width: 1920px) {
             .header {
-                font-size: 6rem;
+                font-size: 4rem;
             }
             .qr-code {
-                width: 700px;
-                height: 700px;
+                width: 550px;
+                height: 550px;
             }
             .qr-text {
                 font-size: 2.5rem;
@@ -157,11 +157,11 @@ $venue = isset($_GET['venue']) ? htmlspecialchars($_GET['venue']) : 'Kellys';
                 font-size: 1.3rem;
             }
             .content {
-                padding: 40px;
-                gap: 40px;
+                padding: 30px;
+                gap: 50px;
             }
             .messages, .qr-container {
-                padding: 30px;
+                padding: 25px;
             }
         }
     </style>
