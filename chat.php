@@ -1,3 +1,4 @@
+```php
 <?php
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
@@ -32,26 +33,41 @@ file_put_contents('/tmp/chat_debug.log', "Chat Session: " . print_r($_SESSION, t
             color: #e0e0e0;
             font-family: 'Poppins', sans-serif;
             margin: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            display: block;
             min-height: 100vh;
-            overflow-x: hidden;
+            overflow-x: auto;
+        }
+        .tos-container {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            color: #b0b0b0;
+            font-size: 0.875rem;
+            z-index: 1000;
+        }
+        .tos-container a {
+            color: #00ff88;
+            text-decoration: none;
+            font-weight: 600;
+        }
+        .tos-container a:hover {
+            text-decoration: underline;
         }
         .container {
             max-width: 600px;
             width: 90%;
             padding: 20px;
+            margin: 50px auto;
             background: #2a2a2a;
             border-radius: 15px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-            animation: fadeIn 1s ease-in;
+            animation: fadeIn 0.5s ease-in;
             position: relative;
         }
         h1 {
             text-align: center;
             color: #00ff88;
-            text-shadow: 0 0 15px #00ff88;
+            text-shadow: 0 0 10px #00ff88;
             animation: pulse 2s infinite;
             font-size: 2.5rem;
             margin-top: 40px;
@@ -127,9 +143,9 @@ file_put_contents('/tmp/chat_debug.log', "Chat Session: " . print_r($_SESSION, t
             right: 10px;
             background: #ff4444;
             color: #fff;
-            padding: 6px 10px;
+            padding: 8px 12px;
             border-radius: 50%;
-            font-size: 12px;
+            font-size: 14px;
             cursor: pointer;
             transition: transform 0.3s;
             width: 30px;
@@ -159,6 +175,9 @@ file_put_contents('/tmp/chat_debug.log', "Chat Session: " . print_r($_SESSION, t
     </style>
 </head>
 <body>
+    <div class="tos-container">
+        By using this chat, you agree to these <a href="terms.php">Terms of Service</a>.
+    </div>
     <div class="container">
         <form method="POST" action="exit.php">
             <button type="submit" class="exit-button">X</button>
@@ -218,3 +237,4 @@ file_put_contents('/tmp/chat_debug.log', "Chat Session: " . print_r($_SESSION, t
 <?php
 $conn->close();
 ?>
+```
