@@ -200,9 +200,11 @@ if (isset($_GET['venue']) && isset($_SESSION['venue']) && $_SESSION['venue'] !==
     <div class="container">
         <?php
         // Handle welcome, name entry, and chat room display
-        if (!isset($_SESSION['name']) || !isset($_SESSION['venue'])) {
+        if (!isset($_SESSION['name']) || !isset($_SESSION['venue']) || (isset($_GET['venue']) && $_GET['venue'] !== $_SESSION['venue'])) {
             if (isset($_GET['venue']) && !isset($_SESSION['venue'])) {
                 $_SESSION['venue'] = htmlspecialchars($_GET['venue']);
+            }
+            if (isset($_SESSION['venue'])) {
                 echo "<h1>Join the Chat!</h1>";
                 echo "<form method='POST' action='index.php?venue=" . urlencode($_SESSION['venue']) . "'>";
                 echo "<input type='text' name='name' placeholder='Choose a name' required>";
@@ -228,6 +230,7 @@ if (isset($_GET['venue']) && isset($_SESSION['venue']) && $_SESSION['venue'] !==
         // Handle name submission
         if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['name']) && isset($_SESSION['venue'])) {
             $_SESSION['name'] = htmlspecialchars($_POST['name']);
+            session_write_close();
             header("Location: index.php?venue=" . urlencode($_SESSION['venue']));
             exit;
         }
@@ -242,6 +245,7 @@ if (isset($_GET['venue']) && isset($_SESSION['venue']) && $_SESSION['venue'] !==
             fetch('fetch_messages.php?venue=<?php echo urlencode($_SESSION['venue']); ?>')
                 .then(response => response.json())
                 .then(data => {
+                    console.log('Fetched messages:', data); // Debug log
                     const messagesChanged = JSON.stringify(data) !== JSON.stringify(lastMessages);
                     if (messagesChanged) {
                         const chatBox = document.getElementById('chatBox');
@@ -256,7 +260,8 @@ if (isset($_GET['venue']) && isset($_SESSION['venue']) && $_SESSION['venue'] !==
                         chatBox.scrollTop = chatBox.scrollHeight;
                         lastMessages = data;
                     }
-                });
+                })
+                .catch(error => console.error('Fetch error:', error)); // Error handling
         }
 
         document.getElementById('messageForm').addEventListener('submit', function(e) {
@@ -272,8 +277,9 @@ if (isset($_GET['venue']) && isset($_SESSION['venue']) && $_SESSION['venue'] !==
             });
         });
 
+        // Initial fetch with slight delay to ensure session is set
+        setTimeout(fetchMessages, 100);
         setInterval(fetchMessages, 2000);
-        fetchMessages();
         <?php endif; ?>
     </script>
 </body>
