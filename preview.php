@@ -16,6 +16,9 @@ $venue = isset($_GET['venue']) ? htmlspecialchars($_GET['venue']) : 'Kellys';
     <title>Kelly's Pub Chat Preview</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
     <style>
+        * {
+            box-sizing: border-box;
+        }
         body {
             background: #1a1a1a;
             color: #e0e0e0;
@@ -41,21 +44,21 @@ $venue = isset($_GET['venue']) ? htmlspecialchars($_GET['venue']) : 'Kellys';
             display: grid;
             grid-template-columns: 1fr 1fr;
             width: 100%;
-            height: calc(100vh - 100px);
-            gap: 20px;
-            padding: 20px;
-            box-sizing: border-box;
+            height: calc(100vh - 120px);
+            gap: 30px;
+            padding: 30px;
         }
         .messages {
             background: #2a2a2a;
             border-radius: 15px;
-            padding: 20px;
+            padding: 25px;
             overflow-y: auto;
             display: flex;
             flex-direction: column;
             gap: 15px;
             box-shadow: 0 0 20px rgba(0, 196, 180, 0.3);
             max-height: 100%;
+            margin-bottom: 20px;
         }
         .message {
             max-width: 80%;
@@ -82,8 +85,9 @@ $venue = isset($_GET['venue']) ? htmlspecialchars($_GET['venue']) : 'Kellys';
             align-items: center;
             background: #2a2a2a;
             border-radius: 15px;
-            padding: 20px;
+            padding: 25px;
             box-shadow: 0 0 20px rgba(0, 196, 180, 0.3);
+            margin-bottom: 20px;
         }
         .qr-code {
             border: 15px solid #00c4b4;
@@ -118,6 +122,8 @@ $venue = isset($_GET['venue']) ? htmlspecialchars($_GET['venue']) : 'Kellys';
             .content {
                 grid-template-columns: 1fr;
                 grid-template-rows: auto auto;
+                padding: 20px;
+                gap: 20px;
             }
             .qr-code {
                 width: 400px;
@@ -128,6 +134,9 @@ $venue = isset($_GET['venue']) ? htmlspecialchars($_GET['venue']) : 'Kellys';
             }
             .qr-text {
                 font-size: 1.5rem;
+            }
+            .messages, .qr-container {
+                margin-bottom: 10px;
             }
         }
         @media (min-width: 1920px) {
@@ -147,11 +156,18 @@ $venue = isset($_GET['venue']) ? htmlspecialchars($_GET['venue']) : 'Kellys';
             .message span {
                 font-size: 1.3rem;
             }
+            .content {
+                padding: 40px;
+                gap: 40px;
+            }
+            .messages, .qr-container {
+                padding: 30px;
+            }
         }
     </style>
 </head>
 <body>
-    <h1 class="header">Join this conversation instantly!</h1>
+    <h1 class="header">Join the group text with others at Kelly's right here right now!</h1>
     <div class="content">
         <div class="messages" id="messageBox"></div>
         <div class="qr-container">
