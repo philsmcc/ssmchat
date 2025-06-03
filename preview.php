@@ -146,7 +146,7 @@ $venue = isset($_GET['venue']) ? htmlspecialchars($_GET['venue']) : 'Kellys';
         <div class="messages" id="messageBox"></div>
         <div class="qr-container">
             <p class="qr-text">Scan to join the chat!</p>
-            <img src="https://api.qrserver.com/v1/create-qr-code/?size=350x350&data=http://35.81.219.212/ssmchat/index.php?venue=<?php echo urlencode($venue); ?>" class="qr-code" alt="<?php echo htmlspecialchars($venue); ?> QR">
+            <img src="https://api.qrserver.com/v1/create-qr-code/?size=400x400&data=http://35.81.99.212/ssmchat/index.php?venue=Kellys" class="qr-code" alt="Kellys QR"> QR">
         </div>
     </div>
 
