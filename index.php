@@ -1,7 +1,11 @@
 <?php
-session_start();
-$conn = new mysqli("localhost", "chat", "chat", "chat");
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 
+session_start();
+
+$conn = new mysqli("localhost", "chat", "chat", "chat");
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
@@ -17,9 +21,14 @@ $conn->query("CREATE TABLE IF NOT EXISTS messages (
     message TEXT
 )");
 
+// Log session and GET data for debugging
+file_put_contents('/tmp/chat_debug.log', "Session: " . print_r($_SESSION, true) . "\nGET: " . print_r($_GET, true) . "\n", FILE_APPEND);
+
 // Clear session if accessing a different venue
 if (isset($_GET['venue']) && isset($_SESSION['venue']) && $_SESSION['venue'] !== $_GET['venue']) {
     $_SESSION = array();
+    session_destroy();
+    session_start();
 }
 
 // Set venue if provided
@@ -161,3 +170,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['name']) && isset($_SE
     </div>
 </body>
 </html>
+<?php
+$conn->close();
+?>

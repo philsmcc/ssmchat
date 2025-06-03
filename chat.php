@@ -1,4 +1,8 @@
 <?php
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
 session_start();
 
 if (!isset($_SESSION['name']) || !isset($_SESSION['venue'])) {
@@ -7,10 +11,12 @@ if (!isset($_SESSION['name']) || !isset($_SESSION['venue'])) {
 }
 
 $conn = new mysqli("localhost", "chat", "chat", "chat");
-
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
+
+// Log session for debugging
+file_put_contents('/tmp/chat_debug.log', "Chat Session: " . print_r($_SESSION, true) . "\n", FILE_APPEND);
 ?>
 
 <!DOCTYPE html>
@@ -172,7 +178,7 @@ if ($conn->connect_error) {
             fetch('fetch_messages.php?venue=<?php echo urlencode($_SESSION['venue']); ?>')
                 .then(response => response.json())
                 .then(data => {
-                    console.log('Fetched messages:', data); // Debug log
+                    console.log('Fetched messages:', data);
                     const messagesChanged = JSON.stringify(data) !== JSON.stringify(lastMessages);
                     if (messagesChanged) {
                         const chatBox = document.getElementById('chatBox');
@@ -209,3 +215,6 @@ if ($conn->connect_error) {
     </script>
 </body>
 </html>
+<?php
+$conn->close();
+?>
