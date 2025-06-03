@@ -24,6 +24,14 @@ $conn->query("CREATE TABLE IF NOT EXISTS messages (
 // Log session and GET data for debugging
 file_put_contents('/tmp/chat_debug.log', "Session: " . print_r($_SESSION, true) . "\nGET: " . print_r($_GET, true) . "\n", FILE_APPEND);
 
+// Redirect to chat.php if user is already logged in
+if (isset($_SESSION['name']) && isset($_SESSION['venue'])) {
+    if (!isset($_GET['venue']) || $_GET['venue'] === $_SESSION['venue']) {
+        header("Location: chat.php");
+        exit;
+    }
+}
+
 // Clear session if accessing a different venue
 if (isset($_GET['venue']) && isset($_SESSION['venue']) && $_SESSION['venue'] !== $_GET['venue']) {
     $_SESSION = array();
