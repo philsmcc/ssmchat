@@ -30,7 +30,7 @@ if (isset($_GET['venue']) && isset($_SESSION['venue']) && $_SESSION['venue'] !==
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fun Chat</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
     <style>
         body {
             background: #1a1a1a;
@@ -44,29 +44,39 @@ if (isset($_GET['venue']) && isset($_SESSION['venue']) && $_SESSION['venue'] !==
             overflow-x: hidden;
         }
         .container {
-            max-width: 600px;
-            width: 90%;
-            padding: 20px;
+            max-width: 90%;
+            width: 100%;
+            padding: 40px;
             background: #2a2a2a;
-            border-radius: 15px;
+            border-radius: 20px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
             animation: fadeIn 1s ease-in;
             position: relative;
+            text-align: center;
         }
         h1 {
             text-align: center;
             color: #00ff88;
-            text-shadow: 0 0 10px #00ff88;
+            text-shadow: 0 0 15px #00ff88;
             animation: pulse 2s infinite;
-            margin-top: 40px;
-            margin-bottom: 20px;
+            font-size: 4rem;
+            font-weight: 800;
+            margin: 20px 0;
+        }
+        .welcome-text {
+            font-size: 2rem;
+            font-weight: 600;
+            margin: 20px 0;
+            color: #e0e0e0;
         }
         .qr-code {
             display: block;
-            margin: 20px auto;
-            border: 5px solid #00ff88;
-            border-radius: 10px;
+            margin: 40px auto;
+            border: 10px solid #00ff88;
+            border-radius: 20px;
             animation: bounce 1.5s infinite;
+            width: 500px;
+            height: 500px;
         }
         input, button {
             width: 100%;
@@ -171,6 +181,19 @@ if (isset($_GET['venue']) && isset($_SESSION['venue']) && $_SESSION['venue'] !==
             from { transform: translateY(10px); opacity: 0; }
             to { transform: translateY(0); opacity: 1; }
         }
+
+        @media (min-width: 1920px) {
+            h1 {
+                font-size: 5rem;
+            }
+            .welcome-text {
+                font-size: 2.5rem;
+            }
+            .qr-code {
+                width: 600px;
+                height: 600px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -186,9 +209,9 @@ if (isset($_GET['venue']) && isset($_SESSION['venue']) && $_SESSION['venue'] !==
                 echo "<button type='submit'>Join Chat</button>";
                 echo "</form>";
             } else {
-                echo "<h1>Welcome to Kelly's Pub!</h1>";
-                echo "<p>Scan the QR code to joing a vanashing chat session</p>";
-                echo "<img src='https://api.qrserver.com/v1/create-qr-code/?size=600x600&data=http://52.34.246.115/ssmchat/index.php?venue=room1' class='qr-code' alt='Room 1 QR'>";
+                echo "<h1>Join Our Bar Chat!</h1>";
+                echo "<p class='welcome-text'>Scan to join the conversation!</p>";
+                echo "<img src='https://api.qrserver.com/v1/create-qr-code/?size=500x500&data=http://52.34.246.115/ssmchat/index.php?venue=room1' class='qr-code' alt='Room 1 QR'>";
             }
         } else {
             echo "<form method='POST' action='exit.php'>";
