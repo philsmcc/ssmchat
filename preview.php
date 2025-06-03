@@ -5,7 +5,7 @@ ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
 // Get venue from URL, default to 'Kellys' if not provided
-$venue = isset($_GET['venue']) ? htmlspecialchars($_GET['venue']) : 'Kellys';
+$venue = isset($_GET['venue']) ? htmlspecialchars($_GET['venue']) : 'd6';
 ?>
 
 <!DOCTYPE html>
@@ -13,7 +13,7 @@ $venue = isset($_GET['venue']) ? htmlspecialchars($_GET['venue']) : 'Kellys';
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kelly's Pub Chat Preview</title>
+    <title>District 6 Chat Preview</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
     <style>
         body {
@@ -146,7 +146,7 @@ $venue = isset($_GET['venue']) ? htmlspecialchars($_GET['venue']) : 'Kellys';
         <div class="messages" id="messageBox"></div>
         <div class="qr-container">
             <p class="qr-text">Scan to join the chat!</p>
-            <img src="https://api.qrserver.com/v1/create-qr-code/?size=400x400&data=http://35.81.99.212/ssmchat/index.php?venue=Kellys" class="qr-code" alt="Kellys QR">
+            <img src="https://api.qrserver.com/v1/create-qr-code/?size=400x400&data=http://35.81.99.212/d6chat/index.php?venue=d6" class="qr-code" alt="d6 QR">
         </div>
     </div>
 
