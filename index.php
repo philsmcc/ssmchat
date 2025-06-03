@@ -165,7 +165,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['name']) && isset($_SE
         <?php else: ?>
             <h1>Join the Fun at Kelly's Pub!</h1>
             <p class="welcome-text">Scan to join the Kelly's chat!</p>
-            <img src="https://api.qrserver.com/v1/create-qr-code/?size=500x500&data=http://52.34.246.115/ssmchat/index.php?venue=Kellys" class="qr-code" alt="Kellys QR">
+            <img src="https://api.qrserver.com/v1/create-qr-code/?size=500x500&data=http://35.81.99.212/ssmchat/index.php?venue=Kellys" class="qr-code" alt="Kellys QR">
         <?php endif; ?>
     </div>
 </body>
