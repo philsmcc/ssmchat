@@ -29,7 +29,7 @@ if (isset($_GET['venue']) && isset($_SESSION['venue']) && $_SESSION['venue'] !==
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fun Chat</title>
+    <title>Kelly's Pub Chat</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
     <style>
         body {
@@ -209,15 +209,15 @@ if (isset($_GET['venue']) && isset($_SESSION['venue']) && $_SESSION['venue'] !==
                 echo "<button type='submit'>Join Chat</button>";
                 echo "</form>";
             } else {
-                echo "<h1>Join Our Bar Chat!</h1>";
-                echo "<p class='welcome-text'>Scan to join the conversation!</p>";
-                echo "<img src='https://api.qrserver.com/v1/create-qr-code/?size=500x500&data=http://52.34.246.115/ssmchat/index.php?venue=room1' class='qr-code' alt='Room 1 QR'>";
+                echo "<h1>Join the Fun at Kelly's Pub!</h1>";
+                echo "<p class='welcome-text'>Scan to join the Kelly's chat!</p>";
+                echo "<img src='https://api.qrserver.com/v1/create-qr-code/?size=500x500&data=http://52.34.246.115/ssmchat/index.php?venue=Kellys' class='qr-code' alt='Kellys QR'>";
             }
         } else {
             echo "<form method='POST' action='exit.php'>";
             echo "<button type='submit' class='exit-button'>X</button>";
             echo "</form>";
-            echo "<h1>Chat Room: " . htmlspecialchars($_SESSION['venue']) . "</h1>";
+            echo "<h1>Kelly's Pub Chat</h1>";
             echo "<div id='chatBox'></div>";
             echo "<form id='messageForm'>";
             echo "<input type='text' id='message' placeholder='Type a message' required>";
