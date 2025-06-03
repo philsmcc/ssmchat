@@ -16,6 +16,12 @@ $conn->query("CREATE TABLE IF NOT EXISTS messages (
     timestamp DATETIME,
     message TEXT
 )");
+
+// Clear session if accessing a new venue
+if (isset($_GET['venue']) && (!isset($_SESSION['venue']) || $_SESSION['venue'] !== $_GET['venue'])) {
+    $_SESSION = array();
+    $_SESSION['venue'] = htmlspecialchars($_GET['venue']);
+}
 ?>
 
 <!DOCTYPE html>
@@ -45,12 +51,14 @@ $conn->query("CREATE TABLE IF NOT EXISTS messages (
             border-radius: 15px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
             animation: fadeIn 1s ease-in;
+            position: relative;
         }
         h1 {
             text-align: center;
             color: #00ff88;
             text-shadow: 0 0 10px #00ff88;
             animation: pulse 2s infinite;
+            margin-top: 0;
         }
         .qr-code {
             display: block;
@@ -123,6 +131,21 @@ $conn->query("CREATE TABLE IF NOT EXISTS messages (
         .message.user span {
             color: #1a1a1a;
         }
+        .exit-button {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: #ff4444;
+            color: #fff;
+            padding: 8px 12px;
+            border-radius: 50%;
+            font-size: 14px;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+        .exit-button:hover {
+            transform: scale(1.1);
+        }
 
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(-20px); }
@@ -148,20 +171,22 @@ $conn->query("CREATE TABLE IF NOT EXISTS messages (
         <?php
         if (!isset($_SESSION['name']) || !isset($_SESSION['venue'])) {
             if (isset($_GET['venue'])) {
-                $_SESSION['venue'] = htmlspecialchars($_GET['venue']);
-                echo "<h1>Join the Chat!</h1>";
+                echo "<h1>Choose a name!</h1>";
                 echo "<form method='POST' action='index.php'>";
                 echo "<input type='text' name='name' placeholder='Choose a name' required>";
                 echo "<button type='submit'>Join Chat</button>";
                 echo "</form>";
             } else {
-                echo "<h1>Chat with the others that are right here right now!</h1>";
-                echo "<p>Scan here to join the conversation!</p>";
+                echo "<h1>Welcome to Kelly's Pub!/h1>";
+                echo "<p>Scan the QR code to join the chat room!</p>";
                 // Single QR code for room1
-                echo "<img src='https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://52.34.246.115/ssmchat/index.php?venue=room1' class='qr-code' alt='Room 1 QR'>";
+                echo "<img src='https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://52.34.246.115/ssmchat/index.php?venue=kellys' class='qr-code' alt='Room 1 QR'>";
             }
         } else {
             echo "<h1>Chat Room: " . htmlspecialchars($_SESSION['venue']) . "</h1>";
+            echo "<form method='POST' action='exit.php'>";
+            echo "<button type='submit' class='exit-button'>Exit</button>";
+            echo "</form>";
             echo "<div id='chatBox'></div>";
             echo "<form id='messageForm'>";
             echo "<input type='text' id='message' placeholder='Type a message' required>";
