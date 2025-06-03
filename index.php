@@ -171,16 +171,16 @@ if (isset($_GET['venue']) && (!isset($_SESSION['venue']) || $_SESSION['venue'] !
         <?php
         if (!isset($_SESSION['name']) || !isset($_SESSION['venue'])) {
             if (isset($_GET['venue'])) {
-                echo "<h1>Choose a name!</h1>";
+                echo "<h1>Join the Chat!</h1>";
                 echo "<form method='POST' action='index.php'>";
                 echo "<input type='text' name='name' placeholder='Choose a name' required>";
                 echo "<button type='submit'>Join Chat</button>";
                 echo "</form>";
             } else {
-                echo "<h1>Welcome to Kelly's Pub!/h1>";
+                echo "<h1>Welcome to Fun Chat!</h1>";
                 echo "<p>Scan the QR code to join the chat room!</p>";
                 // Single QR code for room1
-                echo "<img src='https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://52.34.246.115/ssmchat/index.php?venue=kellys' class='qr-code' alt='Room 1 QR'>";
+                echo "<img src='https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://52.34.246.115/ssmchat/index.php?venue=room1' class='qr-code' alt='Room 1 QR'>";
             }
         } else {
             echo "<h1>Chat Room: " . htmlspecialchars($_SESSION['venue']) . "</h1>";
