@@ -167,7 +167,7 @@ $venue = isset($_GET['venue']) ? htmlspecialchars($_GET['venue']) : 'Kellys';
     </style>
 </head>
 <body>
-    <h1 class="header">Join the group text with others at Kelly's right here right now!</h1>
+    <h1 class="header">Join the Kelly's Group Text.  Right Here, Righ Now!</h1>
     <div class="content">
         <div class="messages" id="messageBox"></div>
         <div class="qr-container">
