@@ -138,11 +138,11 @@ $conn->query("CREATE TABLE IF NOT EXISTS messages (
                 echo "<button type='submit'>Join Chat</button>";
                 echo "</form>";
             } else {
-                echo "<h1>Welcome to Fun Chat!</h1>";
-                echo "<p>Scan a QR code to join a chat room!</p>";
-                // Example QR codes for different venues
-                echo "<img src='https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://52.34.246.115/index.php?venue=room1' class='qr-code' alt='Room 1 QR'>";
-                echo "<img src='https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://52.34.246.115/index.php?venue=room2' class='qr-code' alt='Room 2 QR'>";
+                echo "<h1>You like Kelly's Pub?  Lets talk about that...</h1>";
+                echo "<p>Scan a QR code to join the chat room!</p>";
+                // QR codes updated for /ssmchat/ subdirectory
+                echo "<img src='https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://52.34.246.115/ssmchat/index.php?venue=room1' class='qr-code' alt='Room 1 QR'>";
+            
             }
         } else {
             echo "<h1>Chat Room: " . htmlspecialchars($_SESSION['venue']) . "</h1>";
@@ -150,9 +150,6 @@ $conn->query("CREATE TABLE IF NOT EXISTS messages (
             echo "<form id='messageForm'>";
             echo "<input type='text' id='message' placeholder='Type a message' required>";
             echo "<button type='submit'>Send</button>";
-            echo "</form>";
-            echo "<form method='POST' action='clear.php'>";
-            echo "<button type='submit'>Clear Session</button>";
             echo "</form>";
         }
 
