@@ -1,4 +1,3 @@
-```php
 <?php
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
@@ -237,4 +236,3 @@ file_put_contents('/tmp/chat_debug.log', "Chat Session: " . print_r($_SESSION, t
 <?php
 $conn->close();
 ?>
-```
