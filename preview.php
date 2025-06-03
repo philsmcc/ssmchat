@@ -5,7 +5,7 @@ ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
 // Get venue from URL, default to 'Kellys' if not provided
-$venue = isset($_GET['venue']) ? htmlspecialchars($_GET['venue']) : 'd6';
+$venue = isset($_GET['venue']) ? htmlspecialchars($_GET['venue']) : 'Kellys';
 ?>
 
 <!DOCTYPE html>
@@ -13,7 +13,7 @@ $venue = isset($_GET['venue']) ? htmlspecialchars($_GET['venue']) : 'd6';
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>District 6 Chat Preview</title>
+    <title>Kelly's Pub Chat Preview</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
     <style>
         body {
@@ -21,121 +21,131 @@ $venue = isset($_GET['venue']) ? htmlspecialchars($_GET['venue']) : 'd6';
             color: #e0e0e0;
             font-family: 'Poppins', sans-serif;
             margin: 0;
+            padding: 0;
             min-height: 100vh;
-            overflow-x: hidden;
+            overflow: hidden;
             display: flex;
             flex-direction: column;
-            align-items: center;
         }
         .header {
             text-align: center;
-            color: #00ff88;
-            text-shadow: 0 0 15px #00ff88;
-            animation: pulse 2s infinite;
-            font-size: 3rem;
+            color: #00c4b4;
+            text-shadow: 0 0 15px #00c4b4;
+            font-size: 5rem;
             font-weight: 800;
             margin: 20px 0;
             padding: 0 20px;
+            animation: glow 2s ease-in-out infinite alternate;
         }
         .content {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            align-items: flex-start;
-            width: 90%;
-            max-width: 1200px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            width: 100%;
+            height: calc(100vh - 100px);
             gap: 20px;
             padding: 20px;
+            box-sizing: border-box;
         }
         .messages {
-            flex: 1;
-            min-width: 300px;
-            max-height: 500px;
+            background: #2a2a2a;
+            border-radius: 15px;
+            padding: 20px;
             overflow-y: auto;
-            padding: 15px;
-            background: #3a3a3a;
-            border-radius: 10px;
             display: flex;
             flex-direction: column;
-            gap: 10px;
+            gap: 15px;
+            box-shadow: 0 0 20px rgba(0, 196, 180, 0.3);
+            max-height: 100%;
         }
         .message {
-            max-width: 70%;
-            padding: 10px 15px;
-            border-radius: 15px;
-            animation: slideIn 0.5s ease;
+            max-width: 80%;
+            padding: 15px 20px;
+            border-radius: 20px;
+            font-size: 1.2rem;
+            animation: fadeIn 0.5s ease;
             word-wrap: break-word;
         }
         .message.other {
-            background: #4a4a4a;
+            background: #3a3a3a;
             align-self: flex-start;
             border-bottom-left-radius: 5px;
         }
-        .message.user {
-            background: #00ff88;
-            color: #1a1a1a;
-            align-self: flex-end;
-            border-bottom-right-radius: 5px;
-        }
         .message span {
-            color: #00ff88;
+            color: #00c4b4;
             font-weight: 600;
-        }
-        .message.user span {
-            color: #1a1a1a;
+            font-size: 1.1rem;
         }
         .qr-container {
-            flex: 0 0 auto;
-            min-width: 300px;
-            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background: #2a2a2a;
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 0 20px rgba(0, 196, 180, 0.3);
         }
         .qr-code {
-            display: block;
-            margin: 20px auto;
-            border: 10px solid #00ff88;
+            border: 15px solid #00c4b4;
             border-radius: 20px;
-            animation: bounce 1.5s infinite;
-            width: 350px;
-            height: 350px;
+            width: 600px;
+            height: 600px;
+            animation: pulseQR 2s ease-in-out infinite;
         }
         .qr-text {
-            font-size: 1.5rem;
+            font-size: 2rem;
             font-weight: 600;
             color: #e0e0e0;
-            margin: 10px 0;
+            margin: 20px 0;
+            text-shadow: 0 0 5px #00c4b4;
         }
 
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(-20px); }
+            from { opacity: 0; transform: translateY(10px); }
             to { opacity: 1; transform: translateY(0); }
         }
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-            100% { transform: scale(1); }
+        @keyframes glow {
+            from { text-shadow: 0 0 10px #00c4b4, 0 0 20px #00c4b4; }
+            to { text-shadow: 0 0 20px #00c4b4, 0 0 30px #00c4b4; }
         }
-        @keyframes bounce {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
-        }
-        @keyframes slideIn {
-            from { transform: translateY(10px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
+        @keyframes pulseQR {
+            0% { box-shadow: 0 0 10px #00c4b4; }
+            50% { box-shadow: 0 0 20px #00c4b4; }
+            100% { box-shadow: 0 0 10px #00c4b4; }
         }
 
-        @media (min-width: 1920px) {
-            .header {
-                font-size: 4rem;
+        @media (max-width: 1200px) {
+            .content {
+                grid-template-columns: 1fr;
+                grid-template-rows: auto auto;
             }
             .qr-code {
                 width: 400px;
                 height: 400px;
             }
-            .qr-text {
-                font-size: 2rem;
+            .header {
+                font-size: 3rem;
             }
-            .messages {
-                max-height: 600px;
+            .qr-text {
+                font-size: 1.5rem;
+            }
+        }
+        @media (min-width: 1920px) {
+            .header {
+                font-size: 6rem;
+            }
+            .qr-code {
+                width: 700px;
+                height: 700px;
+            }
+            .qr-text {
+                font-size: 2.5rem;
+            }
+            .message {
+                font-size: 1.4rem;
+            }
+            .message span {
+                font-size: 1.3rem;
             }
         }
     </style>
@@ -146,7 +156,7 @@ $venue = isset($_GET['venue']) ? htmlspecialchars($_GET['venue']) : 'd6';
         <div class="messages" id="messageBox"></div>
         <div class="qr-container">
             <p class="qr-text">Scan to join the chat!</p>
-            <img src="https://api.qrserver.com/v1/create-qr-code/?size=400x400&data=http://35.81.99.212/d6chat/index.php?venue=d6" class="qr-code" alt="d6 QR">
+            <img src="https://api.qrserver.com/v1/create-qr-code/?size=600x600&data=http://35.81.99.212/ssmchat/index.php?venue=Kellys" class="qr-code" alt="Kellys QR">
         </div>
     </div>
 
@@ -164,7 +174,6 @@ $venue = isset($_GET['venue']) ? htmlspecialchars($_GET['venue']) : 'd6';
                         messageBox.innerHTML = '';
                         data.forEach(msg => {
                             const div = document.createElement('div');
-                            // Treat all messages as 'other' since no user is logged in
                             div.className = 'message other';
                             div.innerHTML = `<span>${msg.name}</span>: ${msg.message}`;
                             messageBox.appendChild(div);
