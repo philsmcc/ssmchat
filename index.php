@@ -94,17 +94,34 @@ $conn->query("CREATE TABLE IF NOT EXISTS messages (
             background: #3a3a3a;
             border-radius: 10px;
             margin-bottom: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
         }
         .message {
-            padding: 10px;
-            margin: 5px 0;
-            border-radius: 10px;
-            background: #4a4a4a;
+            max-width: 70%;
+            padding: 10px 15px;
+            border-radius: 15px;
             animation: slideIn 0.5s ease;
+            word-wrap: break-word;
+        }
+        .message.other {
+            background: #4a4a4a;
+            align-self: flex-start;
+            border-bottom-left-radius: 5px;
+        }
+        .message.user {
+            background: #00ff88;
+            color: #1a1a1a;
+            align-self: flex-end;
+            border-bottom-right-radius: 5px;
         }
         .message span {
             color: #00ff88;
             font-weight: 600;
+        }
+        .message.user span {
+            color: #1a1a1a;
         }
 
         @keyframes fadeIn {
@@ -121,8 +138,8 @@ $conn->query("CREATE TABLE IF NOT EXISTS messages (
             50% { transform: translateY(-10px); }
         }
         @keyframes slideIn {
-            from { transform: translateX(-20px); opacity: 0; }
-            to { transform: translateX(0); opacity: 1; }
+            from { transform: translateY(10px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
         }
     </style>
 </head>
@@ -138,11 +155,10 @@ $conn->query("CREATE TABLE IF NOT EXISTS messages (
                 echo "<button type='submit'>Join Chat</button>";
                 echo "</form>";
             } else {
-                echo "<h1>You like Kelly's Pub?  Lets talk about that...</h1>";
-                echo "<p>Scan a QR code to join the chat room!</p>";
-                // QR codes updated for /ssmchat/ subdirectory
+                echo "<h1>Chat with the others that are right here right now!</h1>";
+                echo "<p>Scan here to join the conversation!</p>";
+                // Single QR code for room1
                 echo "<img src='https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://52.34.246.115/ssmchat/index.php?venue=room1' class='qr-code' alt='Room 1 QR'>";
-            
             }
         } else {
             echo "<h1>Chat Room: " . htmlspecialchars($_SESSION['venue']) . "</h1>";
@@ -162,19 +178,27 @@ $conn->query("CREATE TABLE IF NOT EXISTS messages (
 
     <script>
         <?php if (isset($_SESSION['name']) && isset($_SESSION['venue'])): ?>
+        let lastMessages = [];
+
         function fetchMessages() {
             fetch('fetch_messages.php?venue=<?php echo urlencode($_SESSION['venue']); ?>')
                 .then(response => response.json())
                 .then(data => {
-                    const chatBox = document.getElementById('chatBox');
-                    chatBox.innerHTML = '';
-                    data.forEach(msg => {
-                        const div = document.createElement('div');
-                        div.className = 'message';
-                        div.innerHTML = `<span>${msg.name}</span>: ${msg.message}`;
-                        chatBox.appendChild(div);
-                    });
-                    chatBox.scrollTop = chatBox.scrollHeight;
+                    // Check if messages have changed
+                    const messagesChanged = JSON.stringify(data) !== JSON.stringify(lastMessages);
+                    if (messagesChanged) {
+                        const chatBox = document.getElementById('chatBox');
+                        chatBox.innerHTML = '';
+                        data.forEach(msg => {
+                            const div = document.createElement('div');
+                            const isUser = msg.name === '<?php echo addslashes($_SESSION['name']); ?>';
+                            div.className = `message ${isUser ? 'user' : 'other'}`;
+                            div.innerHTML = `<span>${msg.name}</span>: ${msg.message}`;
+                            chatBox.appendChild(div);
+                        });
+                        chatBox.scrollTop = chatBox.scrollHeight;
+                        lastMessages = data;
+                    }
                 });
         }
 
